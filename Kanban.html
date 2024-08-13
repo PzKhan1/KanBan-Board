@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome To KanbanBoard</title>
+    <link href="planning.png" rel="icon">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+         :root {
+            --medium-gray: #3d3d3d;
+            /* Declare all the common elements once and use them. ex: line 33 in .categorywrapper */
+        } 
+
+        .headerwrap {
+            display: flex;
+            background-color: #4b4b4b;
+            width: 100%;
+            height: 50px;
+            justify-content: space-between;
+            
+            align-items: center;
+
+        }
+        
+        .categoryWrapper {
+            
+            display: flex;
+            background-color: var(--medium-gray);
+            gap: 5px;
+            padding: 5px;
+            margin-left: 50px;
+        }
+        .state {
+            width: 50px;
+            height: 30px;
+            cursor: pointer;
+        }
+        .state:hover {
+            border: 3px solid white;
+            box-sizing: border-box;
+        }
+
+        .p1{
+            background-color: lightpink;
+
+        }
+        .p2 {
+            background-color: lightgreen;
+
+        }
+        .p3 {
+            background-color: lightblue;
+            
+        }
+        .p4 {
+            background-color:  #cc7bdb;
+        }
+
+        [data-priority="p1"] {
+            background-color: lightpink;
+
+        }
+        [data-priority="p2"] {
+            background-color: lightgreen;
+
+        }
+        [data-priority="p3"] {
+            background-color: lightblue;
+            
+        }
+        [data-priority = "p4"] {
+            background-color:  #cc7bdb;
+        
+        }
+
+        .actionWrapper {
+            display: flex;
+            background-color: #3d3d3d;
+            margin-right: 50px;
+            
+            
+
+        }
+        .actionWrapper .action{
+            font-size: 40px;
+            width: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+            
+        
+        }
+        .actionWrapper .action:hover {
+            background-color: green;
+
+        }
+        .actionWrapper .del .fa-xmark.enabled {
+                color: red;
+        }
+
+         .headerwrap .searchbox {
+            height:44px ;
+            width: 500px;
+            font-size: 25px;
+            border-radius: 20px;
+            padding-left: 10px;
+        }
+        
+
+        /* main */
+        .mainwrapper {
+            width: 50%;
+            min-width: 400px;
+            height: 50%;
+            min-height: 300px;
+            background-color: silver ;
+            
+            /* left: 50%;
+            top: 50%; */
+            transform: translate(50% , 50%);
+            position: fixed;
+            display: flex;
+            z-index: 1;
+            
+            
+        }
+
+
+        .mainwrapper.hide {
+            display: none;
+        }
+
+        .leftsec {
+            flex-grow: 1;
+        }
+      
+        .rightsec {
+            flex-basis: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+            justify-content: space-between;
+        }
+
+        .leftsec textarea {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            border: none;
+        }
+
+        .rightsec .state {
+            width: 100%;
+            height: 80px;
+            
+            
+        }
+        .rightsec .state.selected {
+        border: 1px solid red;
+    }
+
+        .taskWrapper {
+            padding: 50px;
+           
+            
+           
+            
+        }
+
+        .taskWrapper .tasks {
+            height: 200px;
+            width: 200px;
+            box-sizing: border-box;
+            display: inline-block;
+            margin: 5px;
+            position: relative;
+            
+
+            
+           
+        }
+        .taskWrapper .tasks.hide {
+            display: none;
+        }
+       
+        .taskWrapper .tasks .taskCategory {
+            height: 20px;
+            width: 100%;
+            pointer-events: none;
+           
+            
+            
+        }
+
+        .taskWrapper[data-deleteEnabled="true"] .tasks .taskCategory {
+            pointer-events: all;
+        }
+
+        .taskWrapper .tasks .taskId {
+            height: 36px;
+            width: 100%;
+            background-color: yellow;
+            
+            
+        }
+
+        .taskWrapper .tasks .taskTitle {
+            height: 150px;
+            width: 100%;
+            background-color: khaki;
+            
+        }
+      
+        .taskWrapper .tasks .dustbin {
+            position: absolute;
+            right: 5px;
+            bottom: 5px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .taskWrapper[data-deleteEnabled="true"] .tasks .dustbin {
+            display: block;
+        }
+
+        .taskWrapper .tasks .taskTitle textarea {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            pointer-events: none;
+            resize: none;
+            padding-left: 2px;
+            box-sizing: border-box;
+        }
+       
+        .taskWrapper[data-deleteEnabled="true"] .tasks .taskTitle textarea {
+            pointer-events: all;
+        }
+    </style>
+
+    <script src="https://kit.fontawesome.com/3070fc8d7a.js" crossorigin="anonymous"></script>
+</head>
+
+
+<body>
+    <header class="headerwrap">
+        <div class="categoryWrapper">
+            <div class= "state" data-priority="p1"></div>
+            <div class= "state" data-priority="p2"></div>
+            <div class= "state"data-priority="p3"></div>
+            <div class= "state"data-priority="p4"></div>
+            </div>
+        <div class="search"><input type="text" placeholder="Search by Text or Id" class="searchbox"></div>
+    
+        <div class="actionWrapper">
+            <div class="action add"><i class="fa-solid fa-plus"></i></div>
+            <div class=" action del"><i class="fa-solid fa-xmark"></i></div>
+        </div>
+    </header>
+
+    <main class="mainwrapper hide">
+        <div class="leftsec">
+            <textarea placeholder="Select status of the task by color and add description.
+            pink => New task
+            green => Under Progress
+            blue => Review and Testing
+            violet => Task Completed.
+         Add any notes and Press 'Enter' to post New task. "></textarea>
+        </div>
+        <div class="rightsec">
+            <div class= "state p1 selected" data-category="p1"></div>
+            <div class= "state p2" data-category="p2"></div>
+            <div class= "state p3" data-category="p3"></div>
+            <div class= "state p4" data-category="p4"></div>
+        
+        </div>
+
+       
+    </main>
+
+    <section class="taskWrapper" ></section>
+    
+
+    <script src="kanban.js"></script>
+
+   
+
+</body>
+</html>
